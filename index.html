@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SignConnect — real-time sign to speech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="signconnect-ui.css?v=1" />
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#fff1f5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SignConnect">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+
+<div class="app">
+
+  <header class="topbar"><button id="install-app" class="btn btn-primary" hidden>Install app</button>
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">S<span>c</span></span>
+      <span class="brand-name">SignConnect</span>
+    </div>
+    <div class="status" id="status-pill">
+      <span class="status-dot" id="status-dot"></span>
+      <span id="status-text">Camera off</span>
+    </div>
+  </header>
+
+  <section class="intro"><div><p class="eyebrow">YOUR WORDS. YOUR WAY.</p><h1>A little gesture.<br>A world of connection.</h1><p class="intro-copy">Turn signs into text and speech, one expression at a time.</p></div><div class="intro-note"><span class="spark">✦</span><span>Made for<br><strong>meaningful conversations.</strong></span></div></section>
+  <main class="layout">
+
+    <section class="video-panel" aria-label="Camera feed with hand tracking">
+      <div class="camera-heading"><span><i class="tiny-dot"></i> YOUR CAMERA</span><span>Live workspace</span></div><div class="video-frame">
+        <video id="webcam" autoplay playsinline muted></video>
+        <canvas id="overlay"></canvas>
+        <div class="confidence-badge" id="confidence-badge">
+          <span id="confidence-label">Show a sign to the camera</span>
+        </div>
+      </div><div class="camera-tip"><span class="tip-icon">↗</span><span>Find your frame<strong>Keep your hands visible and face the light.</strong></span></div>
+    </section>
+
+    <aside class="sidebar">
+
+      <div class="panel controls-panel">
+        <h2 class="panel-title">Set up your conversation</h2>
+        <label>Recognition <select id="recognition-mode"><option value="alphabet">Alphabet letters</option><option value="motion">J, Z, phrases + Space</option></select></label><p id="mode-help">Show a letter and hold it steady. Remove your hand after capture. Use motion mode for J and Z.</p>
+        <label>Camera <select id="camera-select" aria-label="Camera"></select></label>
+        <div class="controls-row"><button class="btn" id="start-camera">Start camera</button><button class="btn btn-primary" id="record" disabled>Record one sign</button><button class="btn" id="add-sign" disabled>Add result</button></div>
+        <p id="motion-message" role="status">Loading recognition models…</p>
+        
+      </div>
+      <div class="panel transcript-panel">
+        <div class="transcript-heading"><h2 class="panel-title">Your words</h2><span>LIVE TRANSCRIPT</span></div>
+        <p class="transcript" id="sentence" aria-live="polite"></p>
+        <p class="transcript-placeholder" id="sentence-placeholder">Your next conversation starts here.<br>Show a sign and watch your words appear.</p>
+      </div>
+
+      <div class="panel controls-panel">
+        <div class="controls-row">
+          <button class="btn btn-primary" id="btn-speak">Speak sentence</button>
+          <button class="btn" id="btn-space">Space</button>
+          <button class="btn" id="btn-backspace">Backspace</button>
+          <button class="btn btn-ghost" id="btn-clear">Clear</button>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="toggle-autospeak" checked />
+          <span>Speak each phrase automatically</span>
+        </label>
+      </div>
+
+      <div class="panel vocab-panel">
+        <h2 class="panel-title">Explore your vocabulary</h2>
+        <div class="vocab-group">
+          <span class="vocab-label">Alphabet</span>
+          <p class="vocab-chips">A–Z <span class="vocab-hint">Moving signs J &amp; Z use motion mode.</span></p>
+        </div>
+        <div class="vocab-group">
+          <span class="vocab-label">Phrases</span>
+          <div class="vocab-chips" id="phrase-list"><span>Hello</span><span>Thank you</span><span>Yes</span><span>No</span><span>Please</span><span>Sorry</span><span>Help</span><span>Good</span><span>Bye</span></div>
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <footer class="footnote">
+    SignConnect · Sign to text. Text to voice. <span>Recognition runs locally in your browser. Results may vary with lighting and hand position.</span>
+  </footer>
+
+</div>
+
+<!-- MediaPipe Hands (hand landmark detection) -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+<!-- TensorFlow.js (runs the trained sign classifier) -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
+
+<script src="motion_features.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1675471629/holistic.js" crossorigin="anonymous"></script>
+<script src="unified.js?ui=1"></script>
+<script src="install-app.js"></script>
+</body>
+</html>
