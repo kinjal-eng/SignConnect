@@ -5,3 +5,11 @@
 @media(max-width:900px){.app{padding:22px}.layout{grid-template-columns:minmax(0,1fr) minmax(300px,1fr);gap:16px}.intro-note{display:none}.panel{padding:18px}.video-panel{position:static}}
 @media(max-width:680px){.app{padding:18px 16px}.intro{padding:26px 0}.layout{grid-template-columns:1fr}.intro-copy{font-size:13px}.video-frame{aspect-ratio:4/3}.footnote{display:block}.footnote span{display:block;text-align:left;margin-top:8px}.brand-name{font-size:20px}.status{font-size:11px}h1{letter-spacing:-1px}.video-panel{border-radius:16px}.panel{border-radius:16px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Hide requested UI elements */
+.intro-note,.eyebrow,.intro-copy,#mode-help,.controls-panel>label:has(#camera-select){display:none!important}
+
+/* Light pink theme */
+:root{color-scheme:light;--bg:#fff1f5;--panel:#fffafb;--line:#efd1dc;--muted:#805c6b;--ink:#422735;--lime:#a33162;--soft:#f9dce7}
+body{background:radial-gradient(ellipse at top right,#fbd3e4,transparent 55%),var(--bg)!important;background-color:var(--bg)!important;color:var(--ink)}
+.brand-mark{background:#f4b6cf;color:#64213f}.status-dot.live,.tiny-dot{background:#b53e70}.video-panel{background:#fffafb}.video-frame{background:#21171d}.confidence-badge{background:#fff2f7ee;color:#762345;border-color:#e9b2ca}.panel{background:var(--panel)}select{background:#fff;color:var(--ink);border-color:#e5b9cc}.btn{background:#fce3ed;color:#692941;border-color:#e8b9cd}.btn:hover:enabled{background:#f6ccde}.btn-primary,#start-camera{background:#a33162;color:#fff;border-color:#a33162}.btn-primary:hover:enabled,#start-camera:hover:enabled{background:#84244e}.btn-ghost{background:transparent;color:var(--muted)}#motion-message{color:#75334e;border-color:#c9608a}.transcript-panel{background:#ffe0ec;color:#482333;border-color:#efb7ce}.transcript-heading span,.transcript-placeholder{color:#805267}.vocab-chips>span:not(.vocab-hint){background:#fff1f6;color:#7d3453;border-color:#edc4d5}.toggle input{accent-color:#a33162}.tip-icon{color:#92345b}button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#a33162}
